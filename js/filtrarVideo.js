@@ -2,29 +2,27 @@ import { conexionAPI } from "./conexionAPI.js";
 import crearCard from "./mostrarVideos.js";
 
 
-async function filtrarVideo(evento){
+async function buscarVideos(evento) {
+
     evento.preventDefault();
-   
-    const lista = document.querySelector("[data-lista]");
 
-    const datosDeBusqueda = document.querySelector("[data-busqueda]").value;
+    const datosDeBusqueda=document.querySelector("[data-busqueda]").value;
+    //console.log(datosBusqueda)
+    const buscar = await conexionAPI.buscarVideos(datosDeBusqueda);
 
-    console.log("Datos de búsqueda:", datosDeBusqueda);
+    const listaDeBusqueda=document.querySelector("[data-lista]");
+    console.log(listaDeBusqueda)
 
-    const busqueda = await conexionAPI.buscarVideos(datosDeBusqueda);
-    
-  
-    console.log("Resultados de búsqueda:", busqueda);
+    /* while(listaDeBusqueda.firstChild){
+        console.log(listaDeBusqueda.firstChild)
+        listaDeBusqueda.removeChild(listaDeBusqueda.firstChild)
+    }*/
+    listaDeBusqueda.replaceChildren();
 
-
-    while(lista.firstChild){
-        lista.removeChild(lista.firstChild);
-    }
-    busqueda.forEach(video=>lista.appendChild(crearCard(video.titulo,video.descripcion,video.url,video.imagen)));
-    console.log(busqueda)
-
+    buscar.forEach(element => listaDeBusqueda. appendChild(crearCard(element.titulo, element.descripcion, element.url, element.imagen)));
 }
 
-const boton = document.querySelector("[data-boton-busqueda]");
+const botonBucar = document.querySelector("[data-boton-busqueda]");
 
-boton.addEventListener("click",evento=>filtrarVideo(evento))
+botonBucar.addEventListener("click", evento => buscarVideos(evento))
+
