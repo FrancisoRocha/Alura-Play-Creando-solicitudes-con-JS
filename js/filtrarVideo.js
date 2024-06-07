@@ -24,5 +24,5 @@ async function buscarVideos(evento) {
 
 const botonBucar = document.querySelector("[data-boton-busqueda]");
 
-botonBucar.addEventListener("click", evento => buscarVideos(evento))
+botonBucar.addEventListener("click", evento => buscarVideos(evento)) //Boton Bucar
 
