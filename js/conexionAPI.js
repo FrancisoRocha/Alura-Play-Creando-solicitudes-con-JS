@@ -1,12 +1,7 @@
 async function listarVideos(){
 
-    const conexion = await fetch("http://localhost:3001/videos",{
-        method: "GET",
-        headers: {
-            "Content-type":"application/json"
-        }
-    })
-    const conexionConvertida = await conexion.json();
+    const conexion = await fetch("http://localhost:3001/videos")
+    const conexionConvertida = conexion.json();
 
     return conexionConvertida
 
@@ -16,9 +11,7 @@ async function enviarVideo(titulo,descripcion,url,imagen){
     
     const conexion = await fetch("http://localhost:3001/videos",{
         method: "POST",
-        headers: {
-            "Content-type":"application/json"
-        },
+        headers: {"Content-type":"application/json"},
         body: JSON.stringify({
             titulo: titulo,
             descripcion:`${descripcion} mil visualizaciones`,
@@ -27,18 +20,14 @@ async function enviarVideo(titulo,descripcion,url,imagen){
         })
     })
     const conexionConvertida = await conexion.json();
+    
     return conexionConvertida
 }
 
 async function buscarVideos(palabraClave){
     //console.log(`Palabra clave recibida: ${palabraClave}`);
-    const conexion = await fetch(`http://localhost:3001/videos?q=${palabraClave}`, {
-        method: "GET",
-        headers: {
-            "Content-type": "application/json"
-        }
-    });
-    const conexionConvertida = await conexion.json();
+    const conexion = await fetch(`http://localhost:3001/videos?q=${palabraClave}`);
+    const conexionConvertida =  conexion.json();
     return conexionConvertida;
 }
 

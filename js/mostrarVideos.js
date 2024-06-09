@@ -1,32 +1,31 @@
 
 import { conexionAPI } from  "./conexionAPI.js";
 
-const lista= document.querySelector("[data-lista]");
+const lista = document.querySelector("[data-lista]");
 
-export default function crearCard(titulo,descripcion,url, imagen){
+export default function crearCard(titulo,descripcion,url,imagen){
+
     const video = document.createElement("li");
-
-    video.className= "videos__item";
+    video.className= "videos__item"
     video.innerHTML = `<iframe width="100%" height="72%" src="${url}"
     title="${titulo}" frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; geolocation"
     allowfullscreen></iframe>
+    <div class="descripcion-video">
+        <img src="../img/logo.png" alt="logo canal alura">
+        <h3>${titulo}</h3>
+        <p>${descripcion}</p>
+    </div>`
 
-<div class="descripcion-video">
-    <img src="./img/logo.png" alt="logo canal alura">    
-
-    <h3>${titulo}</h3>
-    <p>${descripcion}</p>;
-</div>`
-
-return video;
+    return video;
 }
 
 async function listarVideos() {
     const listaAPI = await conexionAPI.listarVideos();
-    listaAPI.forEach(element=>lista.appendChild(crearCard(element.titulo, element.descripcion, element.url, element.imagen)));
+    listaAPI.forEach(video => lista.appendChild(crearCard(video.titulo, video.descripcion, video.url, video.imagen)));
 
 }
+
 listarVideos();
 
 
